@@ -1,21 +1,11 @@
 import Link from "next/link";
 import { MainLayout } from "@/components/layout/main-layout";
 import NetworksMap from "@/components/map/NetworksMap";
-
-interface Network {
-  id: string;
-  name: string;
-  location: {
-    city: string;
-    latitude: number;
-    longitude: number;
-  };
-}
+import type { Network } from "@/types";
 
 interface NetworkResponse {
   networks: Network[];
 }
-
 async function fetchNetworks(): Promise<NetworkResponse> {
   const res = await fetch("http://api.citybik.es/v2/networks");
   return res.json();

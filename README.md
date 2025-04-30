@@ -34,9 +34,9 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Name.
   - [ ] Location (city and country).
   - [ ] Companies operating the network (can be multiple).
-  - [ ] Link to access the detail view.
+  - [x] Link to access the detail view.
   - [ ] Handle network fetch errors on RSC
-- [ ] There is a map showing all the bicycle networks.
+- [x] There is a map showing all the bicycle networks.
   - [ ] Clicking on a network opens the detail view.
 - [ ] There is a country filter that affects both the list and the map:
   - [ ] Only one country can be selected at once.
@@ -51,16 +51,17 @@ open [http://localhost:3000](http://localhost:3000).
 
 ### Detail view
 
-- [ ] The detail view must be accessible by URL.
+- [x] The detail view must be accessible by URL.
 - [ ] There is general information about the bicycle network:
-  - [ ] Name.
+  - [x] Name.
   - [ ] Name of the companies operating the network (can be multiple).
   - [ ] Location (city and country).
 - [ ] There is a list of all the bicycle stations belonging to the network:
-  - [ ] Name.
+  - [x] Name.
   - [ ] Number of free bikes.
   - [ ] Number of empty slots.
-- [ ] There is a button to go back to the main view.
+- [x] There is a button to go back to the main view.
+  - [ ] Should be styled properly
 - [ ] There is a map showing all the bicycle stations.
 - [ ] Clicking on a station on the map opens a tooltip:
   - [ ] Name.
