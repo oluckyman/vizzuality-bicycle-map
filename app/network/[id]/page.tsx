@@ -1,3 +1,6 @@
+import { MainLayout } from "@/components/layout/main-layout";
+import Link from "next/link";
+
 interface Station {
   id: string;
   name: string;
@@ -35,15 +38,23 @@ export default async function NetworkPage({ params }: { params: Promise<{ id: st
   const { id } = await params;
   const network = await getNetwork(id);
   return (
-    <div>
-      <h1>{network.name}</h1>
-      <ul>
-        {network.stations.map((station) => (
-          <li key={station.id}>
-            <h2>{station.name}</h2>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <MainLayout
+      sidebar={
+        <>
+          <div>
+            <Link href="/">← Back</Link>
+          </div>
+          <h1>{network.name}</h1>
+          <ul>
+            {network.stations.map((station) => (
+              <li key={station.id}>
+                <h2>{station.name}</h2>
+              </li>
+            ))}
+          </ul>
+        </>
+      }
+      map={"Stations Map"}
+    />
   );
 }

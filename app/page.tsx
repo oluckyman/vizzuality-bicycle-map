@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Link from "next/link";
+import { MainLayout } from "@/components/layout/main-layout";
 
 interface Network {
   id: string;
@@ -27,18 +28,22 @@ export default async function Home() {
   }
 
   return (
-    <main className="w-screen h-screen overflow-hidden flex">
-      <div className="w-[30cqw] min-w-xs max-w-lg h-full bg-blue-200 flex flex-col">
-        <h1 className="p-4 font-bold">Discover bike networks</h1>
-        <ul className="flex-1 overflow-y-auto mb-4">
-          {networks.map((network) => (
-            <li key={network.id}>
-              {network.name} ({network.location.city})
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="flex-1 h-full bg-gray-200">Map</div>
-    </main>
+    <MainLayout
+      sidebar={
+        <>
+          <h1 className="p-4 font-bold">Discover bike networks</h1>
+          <ul className="flex-1 overflow-y-auto mb-4">
+            {networks.map((network) => (
+              <li key={network.id}>
+                <Link href={`/network/${network.id}`}>
+                  {network.name} ({network.location.city})
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      }
+      map={"Networks Map"}
+    />
   );
 }
