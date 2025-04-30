@@ -7,6 +7,8 @@ interface Network {
   name: string;
   location: {
     city: string;
+    latitude: number;
+    longitude: number;
   };
 }
 
@@ -44,7 +46,7 @@ export default async function Home() {
           </ul>
         </>
       }
-      map={<NetworksMap />}
+      map={<NetworksMap networks={networks} />}
     />
   );
 }
