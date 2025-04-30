@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MainLayout } from "@/components/layout/main-layout";
+import NetworksMap from "@/components/map/NetworksMap";
 
 interface Network {
   id: string;
@@ -43,7 +44,7 @@ export default async function Home() {
           </ul>
         </>
       }
-      map={"Networks Map"}
+      map={<NetworksMap />}
     />
   );
 }
