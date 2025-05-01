@@ -73,9 +73,10 @@ open [http://localhost:3000](http://localhost:3000).
   - [ ] Should use navigator back, rather than root path
 - [x] There is a map showing all the bicycle stations.
   - [ ] Auto-zoom to bounding box to fit all stations
-- [ ] Clicking on a station on the map opens a tooltip:
-  - [ ] Name.
-  - [ ] Number of free bikes.
-  - [ ] Number of empty slots.
+- [x] Clicking on a station on the map opens a tooltip:
+  - [x] Name.
+  - [x] Number of free bikes.
+  - [x] Number of empty slots.
+  - [ ] Style as in Figma
 - [ ] BONUS: The list of bicycle stations is paginated
 - [ ] BONUS: The list of bicycle stations can be sorted by free bikes and empty slots (ascending and descending).
