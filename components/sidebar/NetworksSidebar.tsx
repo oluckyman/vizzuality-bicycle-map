@@ -17,19 +17,25 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
   return (
     <>
       <h1 className="p-4 font-bold">Discover bike networks</h1>
-      <select value={country} onChange={handleCountryChange}>
-        <option value="">Country</option>
-        {countries.data.map(({ code, name }) => (
-          <option key={code} value={code}>
-            {name}
-          </option>
-        ))}
-      </select>
+      <div className="flex">
+        <input type="search" placeholder="Search network" className="flex-1 mr-2" />
+        <select value={country} onChange={handleCountryChange}>
+          <option value="">Country</option>
+          {countries.data.map(({ code, name }) => (
+            <option key={code} value={code}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </div>
       <ul className="flex-1 overflow-y-auto mb-4">
         {filteredNetworks.map((network) => (
-          <li key={network.id}>
+          <li key={network.id} className="mb-4">
             <Link href={`/network/${network.id}`}>
-              {network.name} ({network.location.city})
+              <div>
+                {network.name} ({network.location.city})
+              </div>
+              <i>Co: {network.company.join(", ")}</i>
             </Link>
           </li>
         ))}

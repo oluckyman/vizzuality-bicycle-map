@@ -7,4 +7,5 @@ export interface Network {
     latitude: number;
     longitude: number;
   };
+  company: string[];
 }
