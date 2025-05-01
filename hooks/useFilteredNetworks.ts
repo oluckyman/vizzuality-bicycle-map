@@ -3,12 +3,24 @@ import { useMemo } from "react";
 import type { Network } from "@/types";
 
 export default function useFilteredNetworks(allNetworks: Network[]) {
-  const [country] = useQueryState("country", { defaultValue: "" });
+  const [country] = useQueryState("country");
+  const [search] = useQueryState("search");
+
   const filteredNetworks = useMemo(() => {
-    if (!country) {
-      return allNetworks;
+    let networks = allNetworks;
+    if (country) {
+      networks = networks.filter((network) => network.location.country === country);
     }
-    return allNetworks.filter((network) => network.location.country === country);
-  }, [allNetworks, country]);
+    if (search) {
+      const searchTerm = search.toLowerCase();
+      networks = networks.filter(
+        (network) =>
+          network.name.toLowerCase().includes(searchTerm) ||
+          network.company.some((co) => co.toLowerCase().includes(searchTerm)),
+      );
+    }
+    return networks;
+  }, [allNetworks, country, search]);
+
   return filteredNetworks;
 }

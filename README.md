@@ -32,7 +32,7 @@ open [http://localhost:3000](http://localhost:3000).
 
 - [x] There is a list of all the bicycle networks and for each of them
   - [x] Name.
-  - [ ] Location (city and country).
+  - [x] Location (city and country).
   - [x] Companies operating the network (can be multiple).
   - [x] Link to access the detail view.
   - [ ] Handle network fetch errors on RSC
@@ -46,10 +46,13 @@ open [http://localhost:3000](http://localhost:3000).
   - [ ] Style as in Figma
   - [ ] Search country by name
   - [ ] List only countries with bicycle networks
-- [ ] There is a search input that affects both the list and the map:
-  - [ ] The search is performed against the name of the networks and name of the operating companies.
-  - [ ] The keyword is stored in the URL (e.g. ?search=velib).
-  - [ ] When reloading the page, the filter is still applied.
+- [x] There is a search input that affects both the list and the map:
+  - [x] The search is performed against the name of the networks and name of the operating companies.
+  - [x] The keyword is stored in the URL (e.g. ?search=velib).
+  - [x] When reloading the page, the filter is still applied.
+  - [ ] Style as in Figma
+  - [ ] Debounce when typing
+  - [ ] BONUS: Highlight search terms
 - [ ] BONUS: There is a way to centre and zoom the map around the user's location
 - [ ] BONUS: The list of networks is paginated
 
