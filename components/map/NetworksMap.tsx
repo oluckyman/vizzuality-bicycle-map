@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Map, { Marker, NavigationControl } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
@@ -19,7 +20,7 @@ export default function NetworksMap({ networks }: { networks: Network[] }) {
       <NavigationControl position="top-right" showCompass={false} />
       {filteredNetworks.map((network) => (
         <Marker key={network.id} longitude={network.location.longitude} latitude={network.location.latitude}>
-          📍
+          <Link href={`/network/${network.id}`}>📍</Link>
         </Marker>
       ))}
     </Map>

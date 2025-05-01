@@ -38,13 +38,14 @@ open [http://localhost:3000](http://localhost:3000).
   - [ ] Handle network fetch errors on RSC
   - [ ] Style as in Figma
 - [x] There is a map showing all the bicycle networks.
-  - [ ] Clicking on a network opens the detail view.
+  - [x] Clicking on a network opens the detail view.
+  - [ ] Style network marker as in Figma
 - [x] There is a country filter that affects both the list and the map:
   - [x] Only one country can be selected at once.
   - [x] The selected option is stored in the URL (e.g. ?country=FR).
   - [x] When reloading the page, the filter is still applied.
   - [ ] Style as in Figma
-  - [ ] Search country by name
+  - [ ] Search by name in the country dropdown
   - [x] List only countries with bicycle networks
 - [x] There is a search input that affects both the list and the map:
   - [x] The search is performed against the name of the networks and name of the operating companies.
