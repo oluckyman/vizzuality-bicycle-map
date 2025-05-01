@@ -45,6 +45,9 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
               <div>
                 {network.name} ({network.location.city})
               </div>
+              <div>
+                📍 {network.location.city}, {countryNames.get(network.location.country) || network.location.country}
+              </div>
               <i>Co: {network.company.join(", ")}</i>
             </Link>
           </li>
