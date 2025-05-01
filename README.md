@@ -45,7 +45,7 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] When reloading the page, the filter is still applied.
   - [ ] Style as in Figma
   - [ ] Search country by name
-  - [ ] List only countries with bicycle networks
+  - [x] List only countries with bicycle networks
 - [x] There is a search input that affects both the list and the map:
   - [x] The search is performed against the name of the networks and name of the operating companies.
   - [x] The keyword is stored in the URL (e.g. ?search=velib).

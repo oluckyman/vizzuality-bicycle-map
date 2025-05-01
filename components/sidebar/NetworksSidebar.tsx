@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
 import Link from "next/link";
+import { useMemo } from "react";
 import { useQueryState } from "nuqs";
 import countries from "@/data/countries.json";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
@@ -10,6 +10,10 @@ import type { Network } from "@/types";
 const countryNames = new Map(countries.data.map(({ code, name }) => [code, name]));
 
 export default function NetworksSidebar({ networks }: { networks: Network[] }) {
+  const availableCountries = useMemo(() => {
+    const countriesWithNetwork = new Set(networks.map((n) => n.location.country));
+    return countries.data.filter((c) => countriesWithNetwork.has(c.code));
+  }, [networks]);
   const filteredNetworks = useFilteredNetworks(networks);
 
   const [country, setCountry] = useQueryState("country", { defaultValue: "", history: "replace" });
@@ -31,7 +35,7 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
         />
         <select value={country} onChange={handleCountryChange}>
           <option value="">Country</option>
-          {countries.data.map(({ code, name }) => (
+          {availableCountries.map(({ code, name }) => (
             <option key={code} value={code}>
               {name}
             </option>
