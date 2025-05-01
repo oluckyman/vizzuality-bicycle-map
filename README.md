@@ -39,9 +39,10 @@ open [http://localhost:3000](http://localhost:3000).
 - [x] There is a map showing all the bicycle networks.
   - [ ] Clicking on a network opens the detail view.
 - [ ] There is a country filter that affects both the list and the map:
-  - [ ] Only one country can be selected at once.
-  - [ ] The selected option is stored in the URL (e.g. ?country=FR).
-  - [ ] When reloading the page, the filter is still applied.
+  - [x] Only one country can be selected at once.
+  - [x] The selected option is stored in the URL (e.g. ?country=FR).
+  - [x] When reloading the page, the filter is still applied.
+  - [ ] Style as in Figma
 - [ ] There is a search input that affects both the list and the map:
   - [ ] The search is performed against the name of the networks and name of the operating companies.
   - [ ] The keyword is stored in the URL (e.g. ?search=velib).

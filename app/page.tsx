@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { MainLayout } from "@/components/layout/main-layout";
 import NetworksMap from "@/components/map/NetworksMap";
+import NetworksSidebar from "@/components/sidebar/NetworksSidebar";
 import type { Network } from "@/types";
 
 interface NetworkResponse {
@@ -19,24 +19,7 @@ export default async function Home() {
   } catch (e) {
     console.error(e);
   }
+  console.log(networks);
 
-  return (
-    <MainLayout
-      sidebar={
-        <>
-          <h1 className="p-4 font-bold">Discover bike networks</h1>
-          <ul className="flex-1 overflow-y-auto mb-4">
-            {networks.map((network) => (
-              <li key={network.id}>
-                <Link href={`/network/${network.id}`}>
-                  {network.name} ({network.location.city})
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </>
-      }
-      map={<NetworksMap networks={networks} />}
-    />
-  );
+  return <MainLayout sidebar={<NetworksSidebar networks={networks} />} map={<NetworksMap networks={networks} />} />;
 }

@@ -1,4 +1,5 @@
 "use client";
+
 import Map, { Marker, NavigationControl } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Network } from "@/types";
@@ -15,7 +16,11 @@ export default function NetworksMap({ networks }: { networks: Network[] }) {
     >
       <NavigationControl position="top-right" showCompass={false} />
       {networks.map((network) => (
-        <Marker key={network.id} longitude={network.location.longitude} latitude={network.location.latitude}>
+        <Marker
+          key={network.id}
+          longitude={network.location.longitude}
+          latitude={network.location.latitude}
+        >
           📍
         </Marker>
       ))}

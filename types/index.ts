@@ -3,6 +3,7 @@ export interface Network {
   name: string;
   location: {
     city: string;
+    country: string;
     latitude: number;
     longitude: number;
   };
