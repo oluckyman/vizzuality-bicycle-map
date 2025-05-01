@@ -72,7 +72,7 @@ open [http://localhost:3000](http://localhost:3000).
   - [ ] Should be styled properly
   - [ ] Should use navigator back, rather than root path
 - [x] There is a map showing all the bicycle stations.
-  - [ ] Auto-zoom to bounding box to fit all stations
+  - [x] Auto-zoom to bounding box to fit all stations
 - [x] Clicking on a station on the map opens a tooltip:
   - [x] Name.
   - [x] Number of free bikes.

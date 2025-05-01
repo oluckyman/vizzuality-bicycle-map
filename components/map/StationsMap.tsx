@@ -1,18 +1,32 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Map, { Marker, NavigationControl, Popup } from "react-map-gl/mapbox";
+import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Station } from "@/types";
+
+function getBoundingBox(points: { longitude: number; latitude: number }[]) {
+  if (!points.length) return undefined;
+  const bounds = new mapboxgl.LngLatBounds();
+  for (const { latitude, longitude } of points) {
+    bounds.extend([longitude, latitude]);
+  }
+  return bounds;
+}
 
 export default function StationsMap({ stations }: { stations: Station[] }) {
   const [selectedStation, setSelectedStation] = useState<Station | null>(null);
   const handleMapClick = useCallback(() => setSelectedStation(null), []);
+
+  const bounds = useMemo(() => getBoundingBox(stations), [stations]);
+
   return (
     <Map
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
       initialViewState={{
-        zoom: 1,
+        bounds,
+        fitBoundsOptions: { padding: 100 },
       }}
       mapStyle="mapbox://styles/mapbox/light-v11"
       projection={{ name: "mercator" }}
