@@ -1,4 +1,4 @@
-import { MainLayout } from "@/components/layout/main-layout";
+import { MainLayout } from "@/components/layout/MainLayout";
 import NetworksMap from "@/components/map/NetworksMap";
 import NetworksSidebar from "@/components/sidebar/NetworksSidebar";
 import type { Network } from "@/types";

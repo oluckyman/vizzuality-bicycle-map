@@ -2,9 +2,11 @@
 
 import Map, { Marker, NavigationControl } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
+import useFilteredNetworks from "@/hooks/useFilteredNetworks";
 import type { Network } from "@/types";
 
 export default function NetworksMap({ networks }: { networks: Network[] }) {
+  const filteredNetworks = useFilteredNetworks(networks);
   return (
     <Map
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
@@ -15,12 +17,8 @@ export default function NetworksMap({ networks }: { networks: Network[] }) {
       projection={{ name: "mercator" }}
     >
       <NavigationControl position="top-right" showCompass={false} />
-      {networks.map((network) => (
-        <Marker
-          key={network.id}
-          longitude={network.location.longitude}
-          latitude={network.location.latitude}
-        >
+      {filteredNetworks.map((network) => (
+        <Marker key={network.id} longitude={network.location.longitude} latitude={network.location.latitude}>
           📍
         </Marker>
       ))}

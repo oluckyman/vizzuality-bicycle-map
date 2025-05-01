@@ -4,31 +4,24 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { useQueryState } from "nuqs";
 import countries from "@/data/countries.json";
+import useFilteredNetworks from "@/hooks/useFilteredNetworks";
 import type { Network } from "@/types";
 
 export default function NetworksSidebar({ networks }: { networks: Network[] }) {
-  const [currentCountry, setCurrentCountry] = useQueryState("country", { defaultValue: "", history: "replace" });
+  const filteredNetworks = useFilteredNetworks(networks);
 
-  const filteredNetworks = useMemo(() => {
-    if (!currentCountry) {
-      return networks;
-    }
-    return networks.filter((network) => network.location.country === currentCountry);
-  }, [networks, currentCountry]);
+  const [country, setCountry] = useQueryState("country", { defaultValue: "", history: "replace" });
 
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const country = e.target.value;
-    setCurrentCountry(country || null);
-  };
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCountry(e.target.value || null);
 
   return (
     <>
       <h1 className="p-4 font-bold">Discover bike networks</h1>
-      <select value={currentCountry} onChange={handleCountryChange}>
+      <select value={country} onChange={handleCountryChange}>
         <option value="">Country</option>
-        {countries.data.map((country) => (
-          <option key={country.code} value={country.code}>
-            {country.name}
+        {countries.data.map(({ code, name }) => (
+          <option key={code} value={code}>
+            {name}
           </option>
         ))}
       </select>
