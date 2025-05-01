@@ -64,13 +64,15 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Name.
   - [ ] Name of the companies operating the network (can be multiple).
   - [ ] Location (city and country).
-- [ ] There is a list of all the bicycle stations belonging to the network:
+- [x] There is a list of all the bicycle stations belonging to the network:
   - [x] Name.
   - [ ] Number of free bikes.
   - [ ] Number of empty slots.
 - [x] There is a button to go back to the main view.
   - [ ] Should be styled properly
-- [ ] There is a map showing all the bicycle stations.
+  - [ ] Should use navigator back, rather than root path
+- [x] There is a map showing all the bicycle stations.
+  - [ ] Auto-zoom to bounding box to fit all stations
 - [ ] Clicking on a station on the map opens a tooltip:
   - [ ] Name.
   - [ ] Number of free bikes.

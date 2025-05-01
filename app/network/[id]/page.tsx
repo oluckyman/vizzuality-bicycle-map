@@ -1,36 +1,15 @@
-import { MainLayout } from "@/components/layout/MainLayout";
 import Link from "next/link";
+import { MainLayout } from "@/components/layout/MainLayout";
+import StationsMap from "@/components/map/StationsMap";
+import { NetworkDetails } from "@/types";
 
-interface Station {
-  id: string;
-  name: string;
-  empty_slots: number;
-  free_bikes: number;
-  latitude: number;
-  longitude: number;
-  timestamp: string;
+interface NetworkDetailsResponse {
+  network: NetworkDetails;
 }
 
-interface Network {
-  id: string;
-  name: string;
-  stations: Station[];
-  company: string[];
-  location: {
-    city: string;
-    country: string;
-    latitude: number;
-    longitude: number;
-  };
-}
-
-interface NetworkResponse {
-  network: Network;
-}
-
-async function getNetwork(id: string): Promise<Network> {
+async function getNetwork(id: string): Promise<NetworkDetails> {
   const res = await fetch(`http://api.citybik.es/v2/networks/${id}`);
-  const network: NetworkResponse = await res.json();
+  const network: NetworkDetailsResponse = await res.json();
   return network.network;
 }
 
@@ -54,7 +33,7 @@ export default async function NetworkPage({ params }: { params: Promise<{ id: st
           </ul>
         </>
       }
-      map={"Stations Map"}
+      map={<StationsMap stations={network.stations} />}
     />
   );
 }
