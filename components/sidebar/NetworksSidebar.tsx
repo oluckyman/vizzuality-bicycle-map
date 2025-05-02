@@ -23,8 +23,14 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value || null);
 
   return (
-    <>
-      <h1 className="p-4 font-bold">Discover bike networks</h1>
+    <div className="p-10 bg-secondary">
+      <div>Logo</div>
+      <h1 className="mt-6 mb-4 font-semibold leading-10 text-3xl text-secondary-foreground">Discover bike networks</h1>
+      <p className="text-muted-foreground text-sm">
+        Lorem ipsum dolor sit amet consectetur. A volutpat adipiscing placerat turpis magna sem tempor amet faucibus.
+        Arcu praesent viverra pellentesque nisi quam in rhoncus.
+      </p>
+      <hr className="mt-10" />
       <div className="flex">
         <input
           type="search"
@@ -57,6 +63,6 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }

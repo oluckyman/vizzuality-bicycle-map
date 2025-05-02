@@ -4,7 +4,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 const poppins = Poppins({
-  weight: "400",
+  weight: ["700", "600", "400"],
   variable: "--font-poppins",
   subsets: ["latin"],
   fallback: ["sans-serif"],
