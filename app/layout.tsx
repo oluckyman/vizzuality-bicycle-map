@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Vizzuality Front-End Challenge — Ilya Belsky",
+  title: "CycleMap • Vizzuality Front-End Challenge by Ilya Belsky",
   description: "React SPA showing bicycle networks around the world on a map",
 };
 

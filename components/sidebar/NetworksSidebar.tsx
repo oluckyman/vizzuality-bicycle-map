@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
+import { Bike } from "lucide-react";
 import { useQueryState } from "nuqs";
 import countries from "@/data/countries.json";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
@@ -24,7 +25,10 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
 
   return (
     <div className="p-10 bg-secondary">
-      <div>Logo</div>
+      <Link href="/" className="flex gap-2 text-xl font-semibold text-grenadier-400">
+        <Bike />
+        CycleMap
+      </Link>
       <h1 className="mt-6 mb-4 font-semibold leading-10 text-3xl text-secondary-foreground">Discover bike networks</h1>
       <p className="text-muted-foreground text-sm">
         Lorem ipsum dolor sit amet consectetur. A volutpat adipiscing placerat turpis magna sem tempor amet faucibus.
