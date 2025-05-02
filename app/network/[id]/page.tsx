@@ -1,21 +1,11 @@
 import Link from "next/link";
 import { MainLayout } from "@/components/layout/MainLayout";
 import StationsMap from "@/components/map/StationsMap";
-import { NetworkDetails } from "@/types";
-
-interface NetworkDetailsResponse {
-  network: NetworkDetails;
-}
-
-async function getNetwork(id: string): Promise<NetworkDetails> {
-  const res = await fetch(`http://api.citybik.es/v2/networks/${id}`);
-  const network: NetworkDetailsResponse = await res.json();
-  return network.network;
-}
+import { getNetworkDetails } from "@/lib/api";
 
 export default async function NetworkPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const network = await getNetwork(id);
+  const network = await getNetworkDetails(id);
   return (
     <MainLayout
       sidebar={

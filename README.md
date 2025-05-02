@@ -12,10 +12,12 @@ _[TBD]_
 
 ## Stack
 
-- Next.js with the App router.
-- Typescript.
-- Tailwind CSS.
-- Shadcn/ui.
+- [Next.js](https://nextjs.org/) with the [App router](https://nextjs.org/docs/app).
+- [TypeScript](https://www.typescriptlang.org/).
+- [Tailwind CSS](https://tailwindcss.com/).
+- [Shadcn/ui](https://ui.shadcn.com/).
+- [React Mapbox GL](https://visgl.github.io/react-map-gl).
+- [nuqs](https://nuqs.47ng.com/) — for URL params handling.
 
 ## Getting started
 
@@ -35,7 +37,7 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Location (city and country).
   - [x] Companies operating the network (can be multiple).
   - [x] Link to access the detail view.
-  - [ ] Handle network fetch errors on RSC
+  - [x] Handle network fetch errors on RSC
   - [ ] Style as in Figma
 - [x] There is a map showing all the bicycle networks.
   - [x] Clicking on a network opens the detail view.
