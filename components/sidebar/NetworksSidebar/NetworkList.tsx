@@ -41,14 +41,9 @@ export function NetworkList({ networks, countryNames }: NetworkListProps) {
         const companies = network.company.join(", ");
         const overflowThreshold = 50; // string length for companies to show +N company badge
         return (
-          <Link href={`/network/${network.id}`}>
-            <li
-              key={network.id}
-              className="group border-b px-6 py-4 flex flex-col gap-1 hover:bg-accent transition-colors duration-250"
-            >
-              <Link href={`/network/${network.id}`} className="text-xl font-bold text-secondary-foreground">
-                {network.name}
-              </Link>
+          <li key={network.id} className="group border-b px-6 py-4  hover:bg-accent transition-colors duration-250">
+            <Link href={`/network/${network.id}`} className="flex flex-col gap-1">
+              <p className="text-xl font-bold text-secondary-foreground">{network.name}</p>
               <div className="flex items-end justify-between">
                 <div className="flex flex-col gap-2 min-w-0 grow">
                   <Details Icon={MapPin}>
@@ -74,8 +69,8 @@ export function NetworkList({ networks, countryNames }: NetworkListProps) {
                   <ArrowRight className="size-5" />
                 </Button>
               </div>
-            </li>
-          </Link>
+            </Link>
+          </li>
         );
       })}
     </ul>

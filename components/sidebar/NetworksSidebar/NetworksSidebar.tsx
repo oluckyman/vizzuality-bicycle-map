@@ -46,10 +46,7 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
         onSearch={handleSearchChange}
         onCountrySelect={handleCountryChange}
       />
-      <NetworkList 
-        networks={filteredNetworks} 
-        countryNames={countryNames} 
-      />
+      <NetworkList networks={filteredNetworks} countryNames={countryNames} />
     </div>
   );
 }
