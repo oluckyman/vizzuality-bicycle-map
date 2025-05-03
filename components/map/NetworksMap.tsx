@@ -20,7 +20,9 @@ export default function NetworksMap({ networks }: { networks: Network[] }) {
       <NavigationControl position="top-right" showCompass={false} />
       {filteredNetworks.map((network) => (
         <Marker key={network.id} longitude={network.location.longitude} latitude={network.location.latitude}>
-          <Link href={`/network/${network.id}`}>📍</Link>
+          <Link href={`/network/${network.id}`} title={`${network.name}, ${network.location.city}`}>
+            <div className="w-2 h-2 rounded-full border border-grenadier-400 bg-grenadier-400/60" />
+          </Link>
         </Marker>
       ))}
     </Map>

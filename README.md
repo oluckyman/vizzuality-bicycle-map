@@ -45,6 +45,7 @@ open [http://localhost:3000](http://localhost:3000).
 - [x] There is a map showing all the bicycle networks.
   - [x] Clicking on a network opens the detail view.
   - [ ] Style network marker as in Figma
+  - [ ] Zoom to bounding box of networks
 - [x] There is a country filter that affects both the list and the map:
   - [x] Only one country can be selected at once.
   - [x] The selected option is stored in the URL (e.g. ?country=FR).
