@@ -21,11 +21,7 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
   const [country, setCountry] = useQueryState("country", { defaultValue: "", history: "replace" });
   const [search, setSearch] = useQueryState("search", { defaultValue: "", history: "replace" });
 
-  const handleCountryChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => setCountry(e.target.value || null),
-    [setCountry],
-  );
-
+  const handleCountryChange = useCallback((code: string) => setCountry(code || null), [setCountry]);
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value || null),
     [setSearch],
@@ -46,8 +42,8 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
         search={search}
         country={country}
         countries={availableCountries}
-        onSearchChange={handleSearchChange}
-        onCountryChange={handleCountryChange}
+        onSearch={handleSearchChange}
+        onCountrySelect={handleCountryChange}
       />
       <hr className="mt-10" />
       <ul className="flex-1 overflow-y-auto mb-4">

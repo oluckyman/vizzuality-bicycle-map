@@ -1,35 +1,69 @@
-import React from "react";
-import { SearchIcon } from "lucide-react";
+import React, { useCallback, useState } from "react";
+import { SearchIcon, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
 type SearchBarProps = {
   search: string;
   country: string;
   countries: { code: string; name: string }[];
-  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCountryChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onCountrySelect: (countryCode: string) => void;
 };
 
-export function SearchBar({ search, country, countries, onSearchChange, onCountryChange }: SearchBarProps) {
+export function SearchBar({ search, country, countries, onSearch, onCountrySelect }: SearchBarProps) {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const handleCountrySelect = useCallback(
+    (code: string) => {
+      onCountrySelect(code);
+      setIsPopoverOpen(false);
+    },
+    [onCountrySelect, setIsPopoverOpen],
+  );
   return (
-    <div className="flex mt-4 gap-2">
-      <label className="flex text-secondary-foreground flex-grow items-center h-12 gap-2 px-4 py-2 rounded-full border [&:has(:focus-visible)]:ring ring-border">
-        <SearchIcon />
-        <input
+    <div className="flex mt-4.5 gap-2 items-center">
+      <label className="relative flex text-secondary-foreground flex-grow items-center">
+        <SearchIcon strokeWidth={1} className="absolute ml-4" />
+        <Input
           type="search"
           placeholder="Search network"
-          onChange={onSearchChange}
+          onChange={onSearch}
           value={search}
-          className="border flex-1 text-sm border-none outline-none"
+          className="pl-12 h-12 flex-1 text-sm  outline-none"
         />
       </label>
-      <select value={country} onChange={onCountryChange} className="w-[114px]">
-        <option value="">Country</option>
-        {countries.map(({ code, name }) => (
-          <option key={code} value={code}>
-            {name}
-          </option>
-        ))}
-      </select>
+      <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant={"outline"}
+            className="w-[114px] h-12 cursor-pointer data-[state=open]:ring data-[state=open]:ring-offset-1"
+          >
+            <MapPin strokeWidth={1} />
+            Country
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent align="end" className="max-w-52 p-0">
+          <Command>
+            <CommandInput placeholder="Search country" />
+            <CommandEmpty>No country found.</CommandEmpty>
+            <CommandList className="max-h-44">
+              {countries.map(({ code, name }) => (
+                <CommandItem
+                  key={code}
+                  value={code}
+                  keywords={[name]}
+                  className="text-nowrap"
+                  onSelect={handleCountrySelect}
+                >
+                  {name}
+                </CommandItem>
+              ))}
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

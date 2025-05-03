@@ -46,9 +46,11 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Only one country can be selected at once.
   - [x] The selected option is stored in the URL (e.g. ?country=FR).
   - [x] When reloading the page, the filter is still applied.
-  - [ ] Style as in Figma
-  - [ ] Search by name in the country dropdown
+  - [x] Style as in Figma
+  - [x] Search by name in the country dropdown
   - [x] List only countries with bicycle networks
+  - [ ] Show selected country in the dropdown
+  - [ ] Allow to unselect country
 - [x] There is a search input that affects both the list and the map:
   - [x] The search is performed against the name of the networks and name of the operating companies.
   - [x] The keyword is stored in the URL (e.g. ?search=velib).
