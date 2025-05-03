@@ -53,7 +53,7 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] The search is performed against the name of the networks and name of the operating companies.
   - [x] The keyword is stored in the URL (e.g. ?search=velib).
   - [x] When reloading the page, the filter is still applied.
-  - [ ] Style as in Figma
+  - [x] Style as in Figma
   - [ ] Debounce when typing
   - [ ] BONUS: Highlight search terms
 - [ ] BONUS: There is a way to centre and zoom the map around the user's location
