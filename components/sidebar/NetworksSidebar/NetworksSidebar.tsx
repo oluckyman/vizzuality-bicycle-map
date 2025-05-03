@@ -18,10 +18,10 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
   }, [networks]);
   const filteredNetworks = useFilteredNetworks(networks);
 
-  const [country, setCountry] = useQueryState("country", { defaultValue: "", history: "replace" });
+  const [countryCode, setCountryCode] = useQueryState("country", { defaultValue: "", history: "replace" });
   const [search, setSearch] = useQueryState("search", { defaultValue: "", history: "replace" });
 
-  const handleCountryChange = useCallback((code: string) => setCountry(code || null), [setCountry]);
+  const handleCountryChange = useCallback((code: string) => setCountryCode(code || null), [setCountryCode]);
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value || null),
     [setSearch],
@@ -40,7 +40,7 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
       </p>
       <SearchBar
         search={search}
-        country={country}
+        country={countryCode ? { code: countryCode, name: countryNames.get(countryCode) || countryCode } : null}
         countries={availableCountries}
         onSearch={handleSearchChange}
         onCountrySelect={handleCountryChange}
