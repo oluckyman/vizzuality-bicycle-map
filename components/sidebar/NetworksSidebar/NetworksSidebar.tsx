@@ -6,11 +6,10 @@ import { Bike } from "lucide-react";
 import { useQueryState } from "nuqs";
 import countries from "@/data/countries.json";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
+import { getCountryName } from "@/lib/utils";
 import type { Network } from "@/types";
 import { SearchBar } from "./SearchBar";
 import { NetworkList } from "./NetworkList";
-
-const countryNames = new Map(countries.data.map(({ code, name }) => [code, name]));
 
 export default function NetworksSidebar({ networks }: { networks: Network[] }) {
   const availableCountries = useMemo(() => {
@@ -41,12 +40,12 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
       </p>
       <SearchBar
         search={search}
-        country={countryCode ? { code: countryCode, name: countryNames.get(countryCode) || countryCode } : null}
+        countryCode={countryCode}
         countries={availableCountries}
         onSearch={handleSearchChange}
         onCountrySelect={handleCountryChange}
       />
-      <NetworkList networks={filteredNetworks} countryNames={countryNames} />
+      <NetworkList networks={filteredNetworks} />
     </div>
   );
 }

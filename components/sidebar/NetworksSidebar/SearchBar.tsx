@@ -4,24 +4,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { cn } from "@/lib/utils";
+import { cn, getCountryName } from "@/lib/utils";
 
 interface SearchBarProps {
   search: string;
-  country: { code: string; name: string } | null;
+  countryCode: string;
   countries: { code: string; name: string }[];
   onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCountrySelect: (countryCode: string) => void;
 }
 
-export function SearchBar({ search, country, countries, onSearch, onCountrySelect }: SearchBarProps) {
+export function SearchBar({ search, countryCode, countries, onSearch, onCountrySelect }: SearchBarProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const handleCountrySelect = useCallback(
     (code: string) => {
-      onCountrySelect(country?.code === code ? "" : code);
+      onCountrySelect(countryCode === code ? "" : code);
       setIsPopoverOpen(false);
     },
-    [onCountrySelect, setIsPopoverOpen, country],
+    [onCountrySelect, setIsPopoverOpen, countryCode],
   );
   return (
     <div className="flex mt-4.5 mb-4 gap-2 items-center ">
@@ -42,7 +42,7 @@ export function SearchBar({ search, country, countries, onSearch, onCountrySelec
             className="max-w-36 h-12 cursor-pointer data-[state=open]:ring data-[state=open]:ring-offset-1"
           >
             <MapPin strokeWidth={1} />
-            <span className="truncate">{country?.name || "Country"}</span>
+            <span className="truncate">{countryCode ? getCountryName(countryCode) : "Country"}</span>
           </Button>
         </PopoverTrigger>
         <PopoverContent align="end" className="max-w-52 p-0">
@@ -55,7 +55,7 @@ export function SearchBar({ search, country, countries, onSearch, onCountrySelec
                   key={code}
                   value={code}
                   keywords={[name]}
-                  className={cn("text-nowrap", { "font-semibold": country?.code === code })}
+                  className={cn("text-nowrap", { "font-semibold": countryCode === code })}
                   onSelect={handleCountrySelect}
                 >
                   {name}
