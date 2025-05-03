@@ -6,13 +6,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 
-type SearchBarProps = {
+interface SearchBarProps {
   search: string;
   country: { code: string; name: string } | null;
   countries: { code: string; name: string }[];
   onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCountrySelect: (countryCode: string) => void;
-};
+}
 
 export function SearchBar({ search, country, countries, onSearch, onCountrySelect }: SearchBarProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -24,7 +24,7 @@ export function SearchBar({ search, country, countries, onSearch, onCountrySelec
     [onCountrySelect, setIsPopoverOpen, country],
   );
   return (
-    <div className="flex mt-4.5 gap-2 items-center">
+    <div className="flex mt-4.5 mb-4 gap-2 items-center ">
       <label className="relative flex text-secondary-foreground flex-grow items-center">
         <SearchIcon strokeWidth={1} className="absolute ml-4" />
         <Input

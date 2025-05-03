@@ -8,6 +8,7 @@ import countries from "@/data/countries.json";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
 import type { Network } from "@/types";
 import { SearchBar } from "./SearchBar";
+import { NetworkList } from "./NetworkList";
 
 const countryNames = new Map(countries.data.map(({ code, name }) => [code, name]));
 
@@ -28,7 +29,7 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
   );
 
   return (
-    <div className="p-10 bg-secondary">
+    <div className="h-full flex flex-col p-10 bg-secondary">
       <Link href="/" className="flex gap-2 text-xl font-semibold text-grenadier-400">
         <Bike />
         CycleMap
@@ -45,22 +46,10 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
         onSearch={handleSearchChange}
         onCountrySelect={handleCountryChange}
       />
-      <hr className="mt-10" />
-      <ul className="flex-1 overflow-y-auto mb-4">
-        {filteredNetworks.map((network) => (
-          <li key={network.id} className="mb-4">
-            <Link href={`/network/${network.id}`}>
-              <div>
-                {network.name} ({network.location.city})
-              </div>
-              <div>
-                📍 {network.location.city}, {countryNames.get(network.location.country) || network.location.country}
-              </div>
-              <i>Co: {network.company.join(", ")}</i>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <NetworkList 
+        networks={filteredNetworks} 
+        countryNames={countryNames} 
+      />
     </div>
   );
 }

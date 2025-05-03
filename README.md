@@ -38,7 +38,10 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Companies operating the network (can be multiple).
   - [x] Link to access the detail view.
   - [x] Handle network fetch errors on RSC
-  - [ ] Style as in Figma
+  - [x] Style as in Figma
+  - [ ] Sticky search bar when scrolling
+  - [ ] Show companies behind the +N company badge
+  - [ ] Show gradient overlay above the list
 - [x] There is a map showing all the bicycle networks.
   - [x] Clicking on a network opens the detail view.
   - [ ] Style network marker as in Figma
