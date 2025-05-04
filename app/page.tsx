@@ -1,9 +1,9 @@
+import { Suspense } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import NetworksMap from "@/components/map/NetworksMap";
 import NetworksSidebar from "@/components/sidebar/NetworksSidebar";
 import { getNetworks } from "@/lib/api";
 import type { Network } from "@/types";
-import { Suspense } from "react";
 
 export default async function Home() {
   let networks: Network[];
@@ -15,9 +15,19 @@ export default async function Home() {
     throw new Error(e instanceof Error ? e.message : String(e));
   }
 
+  console.log("Render Home", networks.length);
   return (
-    <Suspense>
-      <MainLayout sidebar={<NetworksSidebar networks={networks} />} map={<NetworksMap networks={networks} />} />
-    </Suspense>
+    <MainLayout
+      sidebar={
+        <Suspense>
+          <NetworksSidebar networks={networks} />
+        </Suspense>
+      }
+      map={
+        <Suspense>
+          <NetworksMap networks={networks} />
+        </Suspense>
+      }
+    />
   );
 }

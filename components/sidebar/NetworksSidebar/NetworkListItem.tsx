@@ -37,6 +37,7 @@ export function NetworkListItem({ network }: NetworkListItemProps) {
   const companies = network.company.join(", ");
   const overflowThreshold = 50; // string length for companies to show +N company badge
 
+  console.log("Render NetworkListItem");
   return (
     <li className="group border-b py-4 pr-4 pl-6 hover:bg-accent transition-colors duration-250">
       <Link href={`/network/${network.id}`} className="flex flex-col gap-1">

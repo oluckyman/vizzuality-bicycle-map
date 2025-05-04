@@ -6,7 +6,6 @@ import { Bike } from "lucide-react";
 import { useQueryState } from "nuqs";
 import countries from "@/data/countries.json";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
-import { getCountryName } from "@/lib/utils";
 import type { Network } from "@/types";
 import { SearchBar } from "./SearchBar";
 import { NetworkList } from "./NetworkList";
@@ -27,6 +26,7 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
     [setSearch],
   );
 
+  console.log("Render NetworksSidebar", networks.length, { countryCode, search, filteredNetworks });
   return (
     <div className="h-full flex flex-col p-10 bg-secondary">
       <Link href="/" className="flex gap-2 text-xl font-semibold text-grenadier-400">

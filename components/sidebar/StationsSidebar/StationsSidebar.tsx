@@ -51,7 +51,7 @@ export default function StationsSidebar({ network }: { network: NetworkDetails }
           <TableBody className="text-base">
             {network.stations.map((station) => (
               <TableRow key={station.id} className="border-dashed">
-                <TableCell className="truncate">{station.name.repeat(3)}</TableCell>
+                <TableCell className="truncate">{station.name}</TableCell>
                 <TableCell className="font-bold text-center">{station.free_bikes}</TableCell>
                 <TableCell className="font-bold text-center">{station.empty_slots}</TableCell>
               </TableRow>

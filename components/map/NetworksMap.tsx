@@ -32,7 +32,7 @@ export default function NetworksMap({ networks }: { networks: Network[] }) {
       });
     }
   }, [bounds]);
-  console.log("NetwrokMap render", filteredNetworks.length, networks.length);
+  console.log("Render NetworksMap", networks.length, { filteredNetworks });
   return (
     <Map
       ref={mapRef}
@@ -47,7 +47,7 @@ export default function NetworksMap({ networks }: { networks: Network[] }) {
       <NavigationControl position="top-right" showCompass={false} />
       {filteredNetworks.map((network) => (
         <Marker key={network.id} longitude={network.location.longitude} latitude={network.location.latitude}>
-          <Link href={`/network/${network.id}`} title={`${network.name}, ${network.location.city}`}>
+          <Link href={`/network/${network.id}`} title={`${network.name}, ${network.location.city}`} prefetch={false}>
             <div className="w-2 h-2 rounded-full border border-grenadier-400 bg-grenadier-400/60" />
           </Link>
         </Marker>
