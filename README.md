@@ -39,9 +39,6 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Link to access the detail view.
   - [x] Handle network fetch errors on RSC
   - [x] Style as in Figma
-  - [ ] Sticky search bar when scrolling
-  - [ ] Show companies behind the +N company badge
-  - [ ] Show gradient overlay above the list
 - [x] There is a map showing all the bicycle networks.
   - [x] Clicking on a network opens the detail view.
   - [x] Style network marker as in Figma
@@ -62,7 +59,7 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Style as in Figma
   - [x] Debounce when typing
 - [x] BONUS: There is a way to centre and zoom the map around the user's location
-- [ ] BONUS: The list of networks is paginated
+- [x] BONUS: The list of networks is paginated
 
 ### Detail view
 
@@ -77,7 +74,6 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Number of empty slots.
 - [x] There is a button to go back to the main view.
   - [x] Should be styled properly
-  - [ ] Should use navigator back, rather than root path
 - [x] There is a map showing all the bicycle stations.
   - [x] Auto-zoom to bounding box to fit all stations
 - [x] Clicking on a station on the map opens a tooltip:
