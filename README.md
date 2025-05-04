@@ -68,16 +68,16 @@ open [http://localhost:3000](http://localhost:3000).
 ### Detail view
 
 - [x] The detail view must be accessible by URL.
-- [ ] There is general information about the bicycle network:
+- [x] There is general information about the bicycle network:
   - [x] Name.
-  - [ ] Name of the companies operating the network (can be multiple).
-  - [ ] Location (city and country).
+  - [x] Name of the companies operating the network (can be multiple).
+  - [x] Location (city and country).
 - [x] There is a list of all the bicycle stations belonging to the network:
   - [x] Name.
-  - [ ] Number of free bikes.
-  - [ ] Number of empty slots.
+  - [x] Number of free bikes.
+  - [x] Number of empty slots.
 - [x] There is a button to go back to the main view.
-  - [ ] Should be styled properly
+  - [x] Should be styled properly
   - [ ] Should use navigator back, rather than root path
 - [x] There is a map showing all the bicycle stations.
   - [x] Auto-zoom to bounding box to fit all stations
