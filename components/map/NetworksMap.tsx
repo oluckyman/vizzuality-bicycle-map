@@ -3,19 +3,10 @@
 import { useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import Map, { Marker, NavigationControl, MapRef } from "react-map-gl/mapbox";
-import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
+import { getBoundingBox } from "@/lib/utils";
 import type { Network } from "@/types";
-
-function getBoundingBox(points: { longitude: number; latitude: number }[]) {
-  if (!points.length) return undefined;
-  const bounds = new mapboxgl.LngLatBounds();
-  for (const { latitude, longitude } of points) {
-    bounds.extend([longitude, latitude]);
-  }
-  return bounds;
-}
 
 export default function NetworksMap({ networks }: { networks: Network[] }) {
   const filteredNetworks = useFilteredNetworks(networks);

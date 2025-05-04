@@ -2,8 +2,8 @@
 
 import { useCallback, useMemo, useState } from "react";
 import Map, { Marker, NavigationControl, Popup, MarkerProps, MarkerEvent } from "react-map-gl/mapbox";
-import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { getBoundingBox } from "@/lib/utils";
 import type { Station } from "@/types";
 
 interface StationMarkerProps extends Omit<MarkerProps, "longitude" | "latitude" | "onClick"> {
@@ -31,15 +31,6 @@ function StationMarker({ station, onClick, ...rest }: StationMarkerProps) {
       <div />
     </Marker>
   );
-}
-
-function getBoundingBox(points: { longitude: number; latitude: number }[]) {
-  if (!points.length) return undefined;
-  const bounds = new mapboxgl.LngLatBounds();
-  for (const { latitude, longitude } of points) {
-    bounds.extend([longitude, latitude]);
-  }
-  return bounds;
 }
 
 export default function StationsMap({ stations }: { stations: Station[] }) {
