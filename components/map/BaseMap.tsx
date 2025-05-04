@@ -1,6 +1,7 @@
 import Map, { NavigationControl, MapProps, MapRef } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { LngLatBoundsLike } from "mapbox-gl";
+import { NearMeControl } from "./NearMeControl";
 
 export interface BaseMapProps extends MapProps {
   initialBounds?: LngLatBoundsLike;
@@ -25,6 +26,7 @@ export function BaseMap({ initialBounds, children, ...rest }: BaseMapProps) {
       }
       {...rest}
     >
+      <NearMeControl />
       <NavigationControl position="top-right" showCompass={false} />
       {children}
     </Map>

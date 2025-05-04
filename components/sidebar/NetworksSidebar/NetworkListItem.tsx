@@ -60,10 +60,7 @@ export function NetworkListItem({ network }: NetworkListItemProps) {
               </div>
             </Details>
           </div>
-          <Button
-            variant={"secondary"}
-            className="text-grenadier-500 w-26 gap-1 cursor-pointer justify-end px-2.5 group-hover:px-4"
-          >
+          <Button variant={"secondary"} className="text-grenadier-500 w-26 gap-1 justify-end px-2.5 group-hover:px-4">
             <span className="overflow-hidden max-w-0 group-hover:max-w-xs transition-all duration-250">Details</span>
             <ArrowRight className="size-5" />
           </Button>

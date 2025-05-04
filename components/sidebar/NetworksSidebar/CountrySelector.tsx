@@ -28,7 +28,7 @@ export function CountrySelector({ selectedCode, countries, onSelect }: CountrySe
         <Button
           variant={"outline"}
           size="lg"
-          className="max-w-36 h-12 cursor-pointer data-[state=open]:ring data-[state=open]:ring-offset-1"
+          className="max-w-36 h-12 data-[state=open]:ring data-[state=open]:ring-offset-1"
         >
           <MapPin strokeWidth={1} />
           <span className="truncate">{selectedCode ? getCountryName(selectedCode) : "Country"}</span>
