@@ -1,10 +1,37 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import Map, { Marker, NavigationControl, Popup } from "react-map-gl/mapbox";
+import Map, { Marker, NavigationControl, Popup, MarkerProps, MarkerEvent } from "react-map-gl/mapbox";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Station } from "@/types";
+
+interface StationMarkerProps extends Omit<MarkerProps, "longitude" | "latitude" | "onClick"> {
+  station: Station;
+  onClick: (station: Station) => void;
+}
+
+function StationMarker({ station, onClick, ...rest }: StationMarkerProps) {
+  const handleClick = useCallback(
+    (e: MarkerEvent<MouseEvent>) => {
+      e.originalEvent.stopPropagation();
+      onClick(station);
+    },
+    [onClick, station],
+  );
+
+  return (
+    <Marker
+      longitude={station.longitude}
+      latitude={station.latitude}
+      onClick={handleClick}
+      className="size-3 cursor-pointer shadow-md hover:shadow-lg rounded-full bg-grenadier-400 hover:border border-accent-foreground hover:z-1"
+      {...rest}
+    >
+      <div />
+    </Marker>
+  );
+}
 
 function getBoundingBox(points: { longitude: number; latitude: number }[]) {
   if (!points.length) return undefined;
@@ -18,9 +45,7 @@ function getBoundingBox(points: { longitude: number; latitude: number }[]) {
 export default function StationsMap({ stations }: { stations: Station[] }) {
   const [selectedStation, setSelectedStation] = useState<Station | null>(null);
   const handleMapClick = useCallback(() => setSelectedStation(null), []);
-
   const bounds = useMemo(() => getBoundingBox(stations), [stations]);
-
   return (
     <Map
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
@@ -34,18 +59,7 @@ export default function StationsMap({ stations }: { stations: Station[] }) {
     >
       <NavigationControl position="top-right" showCompass={false} />
       {stations.map((station) => (
-        <Marker
-          key={station.id}
-          longitude={station.longitude}
-          latitude={station.latitude}
-          onClick={(e) => {
-            e.originalEvent.stopPropagation();
-            setSelectedStation(station);
-          }}
-          style={{ cursor: "pointer" }}
-        >
-          🔴
-        </Marker>
+        <StationMarker key={station.id} station={station} onClick={setSelectedStation} />
       ))}
       {selectedStation && (
         <Popup
@@ -55,9 +69,15 @@ export default function StationsMap({ stations }: { stations: Station[] }) {
           anchor="bottom"
           onClose={() => setSelectedStation(null)}
         >
-          <h3>{selectedStation.name}</h3>
-          <p>Free bikes: {selectedStation.free_bikes}</p>
-          <p>Empty slots: {selectedStation.empty_slots}</p>
+          <div className="p-1.5 font-[var(--font-poppins)]">
+            <h3 className="text-secondary-foreground font-medium text-base mb-2">{selectedStation.name}</h3>
+            <div className="flex justify-between font-light text-xs">
+              Free bikes <span className="font-medium">{selectedStation.free_bikes}</span>
+            </div>
+            <div className="flex justify-between font-light text-xs">
+              Empty slots <span className="font-medium">{selectedStation.empty_slots}</span>
+            </div>
+          </div>
         </Popup>
       )}
     </Map>

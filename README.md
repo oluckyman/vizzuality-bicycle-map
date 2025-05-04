@@ -85,6 +85,6 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] Name.
   - [x] Number of free bikes.
   - [x] Number of empty slots.
-  - [ ] Style as in Figma
+  - [x] Style as in Figma
 - [ ] BONUS: The list of bicycle stations is paginated
 - [ ] BONUS: The list of bicycle stations can be sorted by free bikes and empty slots (ascending and descending).
