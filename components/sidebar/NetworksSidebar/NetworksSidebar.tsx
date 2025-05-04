@@ -6,6 +6,7 @@ import { Bike } from "lucide-react";
 import { useQueryState } from "nuqs";
 import countries from "@/data/countries.json";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Network } from "@/types";
 import { SearchInput } from "./SearchInput";
 import { CountrySelector } from "./CountrySelector";
@@ -23,21 +24,25 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
 
   console.log("Render NetworksSidebar", networks.length, { countryCode, search, filteredNetworks });
   return (
-    <div className="h-full flex flex-col p-10 bg-secondary">
-      <Link href="/" className="flex gap-2 text-xl font-semibold text-grenadier-400">
-        <Bike />
-        CycleMap
-      </Link>
-      <h1 className="mt-6 mb-4 font-semibold leading-10 text-3xl text-secondary-foreground">Discover bike networks</h1>
-      <p className="text-muted-foreground text-sm">
-        Lorem ipsum dolor sit amet consectetur. A volutpat adipiscing placerat turpis magna sem tempor amet faucibus.
-        Arcu praesent viverra pellentesque nisi quam in rhoncus.
-      </p>
-      <div className="flex mt-4.5 mb-4 gap-2 items-center">
-        <SearchInput value={search} onChange={setSearch} />
-        <CountrySelector selectedCode={countryCode} countries={availableCountries} onSelect={setCountryCode} />
+    <ScrollArea className="h-full flex flex-col bg-secondary">
+      <div className="p-10">
+        <Link href="/" className="flex gap-2 text-xl font-semibold text-grenadier-400">
+          <Bike />
+          CycleMap
+        </Link>
+        <h1 className="mt-6 mb-4 font-semibold leading-10 text-3xl text-secondary-foreground">
+          Discover bike networks
+        </h1>
+        <p className="text-muted-foreground text-sm">
+          Lorem ipsum dolor sit amet consectetur. A volutpat adipiscing placerat turpis magna sem tempor amet faucibus.
+          Arcu praesent viverra pellentesque nisi quam in rhoncus.
+        </p>
+        <div className="flex mt-4.5 mb-4 gap-2 items-center">
+          <SearchInput value={search} onChange={setSearch} />
+          <CountrySelector selectedCode={countryCode} countries={availableCountries} onSelect={setCountryCode} />
+        </div>
+        <NetworkList networks={filteredNetworks} />
       </div>
-      <NetworkList networks={filteredNetworks} />
-    </div>
+    </ScrollArea>
   );
 }
