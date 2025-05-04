@@ -4,11 +4,7 @@ React SPA visualizing global city bike networks.
 
 ## Demo
 
-https://vizzuality-bicycle-map.vercel.app/
-
-## Features
-
-_[TBD]_
+[https://vizzuality-bicycle-map.vercel.app/](https://vizzuality-bicycle-map.vercel.app/)
 
 ## Stack
 
@@ -18,68 +14,133 @@ _[TBD]_
 - [Shadcn/ui](https://ui.shadcn.com/).
 - [React Mapbox GL](https://visgl.github.io/react-map-gl).
 - [nuqs](https://nuqs.47ng.com/) — for URL params handling.
+- [use-debounce](https://github.com/xnimorz/use-debounce) — for search query debouncing
 
 ## Getting started
 
 ```bash
+# 1. clone
+# 2. install deps
 npm install
+# 3. create .env.local, add citybike api and mapbox token:
+#  NEXT_PUBLIC_CITYBIKE_API_URL=http://api.citybik.es/v2
+#  NEXT_PUBLIC_MAPBOX_TOKEN=YOUR_MAPBOX_ACCESS_TOKEN
+# 4. run dev server:
 npm run dev
 ```
 
 open [http://localhost:3000](http://localhost:3000).
 
-## TODO
+## Features implemented
 
-### Main view
+- Network list & map view.
+- Network detail view with station list & map.
+- Client-side filtering (country, search) synced with URL state (`nuqs`).
+- Interactive station map popups.
+- Map auto-zoom to fit markers (networks/stations).
+- Error boundaries (`error.tsx`) & not found handling (`not-found.tsx`).
+- Pixel-perfect theming based on Figma assets.
+- (bonus) Pagination for network list.
+- (bonus) 'Near me' map control.
+- (bonus) Search input debouncing.
+- (bonus) Highlight and unselect country
 
-- [x] There is a list of all the bicycle networks and for each of them
-  - [x] Name.
-  - [x] Location (city and country).
-  - [x] Companies operating the network (can be multiple).
-  - [x] Link to access the detail view.
-  - [x] Handle network fetch errors on RSC
-  - [x] Style as in Figma
-- [x] There is a map showing all the bicycle networks.
-  - [x] Clicking on a network opens the detail view.
-  - [x] Style network marker as in Figma
-  - [x] Zoom to bounding box of networks
-- [x] There is a country filter that affects both the list and the map:
-  - [x] Only one country can be selected at once.
-  - [x] The selected option is stored in the URL (e.g. ?country=FR).
-  - [x] When reloading the page, the filter is still applied.
-  - [x] Style as in Figma
-  - [x] Search by name in the country dropdown
-  - [x] List only countries with bicycle networks
-  - [x] Show selected country in the dropdown
-  - [x] Allow to unselect country
-- [x] There is a search input that affects both the list and the map:
-  - [x] The search is performed against the name of the networks and name of the operating companies.
-  - [x] The keyword is stored in the URL (e.g. ?search=velib).
-  - [x] When reloading the page, the filter is still applied.
-  - [x] Style as in Figma
-  - [x] Debounce when typing
-- [x] BONUS: There is a way to centre and zoom the map around the user's location
-- [x] BONUS: The list of networks is paginated
+## Project structure
 
-### Detail view
+### **app/**
 
-- [x] The detail view must be accessible by URL.
-- [x] There is general information about the bicycle network:
-  - [x] Name.
-  - [x] Name of the companies operating the network (can be multiple).
-  - [x] Location (city and country).
-- [x] There is a list of all the bicycle stations belonging to the network:
-  - [x] Name.
-  - [x] Number of free bikes.
-  - [x] Number of empty slots.
-- [x] There is a button to go back to the main view.
-  - [x] Should be styled properly
-- [x] There is a map showing all the bicycle stations.
-  - [x] Auto-zoom to bounding box to fit all stations
-- [x] Clicking on a station on the map opens a tooltip:
-  - [x] Name.
-  - [x] Number of free bikes.
-  - [x] Number of empty slots.
-  - [x] Style as in Figma
-- [ ] BONUS: The list of bicycle stations is paginated
-- [ ] BONUS: The list of bicycle stations can be sorted by free bikes and empty slots (ascending and descending).
+- `app/layout.tsx`: Root layout, includes font setup and NuqsAdapter.
+- `app/page.tsx`: Main view (network list/map). Server Component (RSC) fetching initial data.
+- `app/error.tsx`: Global error boundary for unexpected errors.
+- `app/network/[id]/page.tsx`: Network detail view. Server Component (RSC) fetching specific network data.
+- `app/network/[id]/not-found.tsx`: Specific 404 page for missing networks. E.g. misspelled URL
+
+Naming: kebab-case for route segments and special files, as recomened by Next.js.
+
+### **components/**
+
+For a project of this scale I aimed to balance colocation principle and separation of concerns. High level grouping is by primary role in the UI (e.g. all map-related componetns together). This reflects the visual architecture. For lower levels colocation is used (e.g. `NetworkSidbar` with all it's sub-components).
+
+Strict feature sliced design (e.g. `features/network-list/` with componetns, hooks, types, etc) is beneficial for larger projects but for this project it's overkill.
+
+- `components/layout/`: Main layout structure (MainLayout.tsx). Same for both Networks and Detail routes.
+- `components/map/`: Map-related components (BaseMap.tsx, NetworksMap.tsx, StationsMap.tsx, NearMeControl.tsx).
+- `components/sidebar/`: Sidebar components for both views (NetworksSidebar/, StationsSidebar/). Further decomposed (e.g., SearchBar, NetworkList, PaginationControl).
+- `components/ui/`: Components generated by shadcn/ui CLI
+
+Naming: kebab-case.tsx for shadcn/ui generated components, PascalCase.tsx for React components, following common React conventions.
+
+### **hooks/**
+
+- `hooks/useFilteredNetworks.ts`: Centralized logic for filtering networks based on URL state (nuqs).
+
+Naming: camelCase.ts reflecting the hook name.
+
+### **lib/**
+
+- `lib/api.ts`: Logic to fetch from CityBikes API and error handling.
+- `lib/utils.ts`: All utility functions (not much)
+
+### **types/**
+
+- Shared TypeScript interfaces (Network, Station, NetworkDetails).
+
+## Architectural decisions & trade-offs
+
+Here I highlight my key decisions and the reasoning behind them.
+
+### **Data fetching: RSC + client-side filtering.**
+
+- `app/page.tsx` (RSC) fetches _all_ networks initially for optimal LCP.
+- client components (`NetworksSidebar`, `NetworksMap`) receive full dataset and perform filtering locally based on URL state (`nuqs`).
+
+- **rationale:**
+
+  - CityBikes API lacks server-side filtering, requiring the client to fetch ~700 networks.
+  - RSC has better performance (and SEO) compared to CSR
+  - filtering on client side is instant for this data volume
+  - using URL as source of truth
+  - this avoids server roundtrips or complex Server Actions logic for this simple case.
+
+- **also considered:**
+
+  - CSR: rejected due to slower initial render
+  - Server Actions for filtering: rejected due to API limits (still have to fetch all data) and complexity.
+
+### **URL state management: `nuqs`.**
+
+- using `nuqs` to manage sync between URL params and app state.
+
+- **rationale:**
+
+  - allows to work with URL as with `useState`, perfect for this use case.
+  - uses `history.replaceState` internally, providing instant UI updates without triggering full RSC refetches on state change. ensures URL is single source of truth, enabling deep linking and browser navigation.
+
+- **also considered:**
+
+  - manual `useState` + `useEffect` + `useSearchParams` + `router.push`
+  - `router.push` on filter change: causes server roundtrip even when client-side filtering was sufficient
+
+### **Error handling:**
+
+API layer (`lib/api.ts`) throws on any error: `notFound()` on 404, `Error` otherwise.
+
+- Detail page (`/network/[id]`) relies on Next.js file conventions: `not-found.tsx` if misspelled `id`, `error.tsx` otherwise.
+- Main page (`/`) catches all errors. `notFound` is re-thrown as a general `Error`, as 404 for the main list endpoint signifies a system issue, directing to `error.tsx`.
+
+### **Styling:**
+
+- Tailwind v4 with `@theme` directive for utility classes.
+- color palette is exported form Figma and wired to semantic vars in `:root` (`globals.css`).
+- `shadcn/ui` for accessible components.
+
+## Known issues / Potential improvements
+
+- network and details list lacks sticky search bar and top/bottom gradient overlays on scroll.
+- company name truncation and `+n` badge logic is naive (counts by characters, so `+n` may be inaccurate).
+- `nuqs` causes second rerender after URL change, mitigated it by using `memo` for critical components
+- station list on detail page lacks pagination and sorting (bonus feature).
+- `<Suspense>` boundaries in `app/page.tsx` lack explicit `fallback` props (would add spinners/skeletons in production).
+- pagination controls could reset scroll position (`nuqs` `scroll:true` seemed ineffective here).
+- would be nice to show 'no results' placeholder when no networks found.
+- redesign to a single map instance shared between network list and detail views, allowing smooth viewport transitions without page reloads.
