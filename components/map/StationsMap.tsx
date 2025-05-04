@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import Map, { Marker, NavigationControl, Popup, MarkerProps, MarkerEvent } from "react-map-gl/mapbox";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { Marker, Popup, MarkerProps, MarkerEvent } from "react-map-gl/mapbox";
 import { getBoundingBox } from "@/lib/utils";
+import { BaseMap } from "./BaseMap";
 import type { Station } from "@/types";
 
 interface StationMarkerProps extends Omit<MarkerProps, "longitude" | "latitude" | "onClick"> {
@@ -37,18 +37,9 @@ export default function StationsMap({ stations }: { stations: Station[] }) {
   const [selectedStation, setSelectedStation] = useState<Station | null>(null);
   const handleMapClick = useCallback(() => setSelectedStation(null), []);
   const bounds = useMemo(() => getBoundingBox(stations), [stations]);
+
   return (
-    <Map
-      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
-      initialViewState={{
-        bounds,
-        fitBoundsOptions: { padding: 100 },
-      }}
-      mapStyle="mapbox://styles/mapbox/light-v11"
-      projection={{ name: "mercator" }}
-      onClick={handleMapClick}
-    >
-      <NavigationControl position="top-right" showCompass={false} />
+    <BaseMap initialBounds={bounds} onClick={handleMapClick}>
       {stations.map((station) => (
         <StationMarker key={station.id} station={station} onClick={setSelectedStation} />
       ))}
@@ -61,16 +52,16 @@ export default function StationsMap({ stations }: { stations: Station[] }) {
           onClose={() => setSelectedStation(null)}
         >
           <div className="p-1.5 font-[var(--font-poppins)]">
-            <h3 className="text-secondary-foreground font-medium text-base mb-2">{selectedStation.name}</h3>
-            <div className="flex justify-between font-light text-xs">
+            <h3 className="text-secondary-foreground font-medium text-base leading-4 mb-2">{selectedStation.name}</h3>
+            <div className="flex justify-between font-light text-sm gap-2">
               Free bikes <span className="font-medium">{selectedStation.free_bikes}</span>
             </div>
-            <div className="flex justify-between font-light text-xs">
+            <div className="flex justify-between font-light text-sm gap-2">
               Empty slots <span className="font-medium">{selectedStation.empty_slots}</span>
             </div>
           </div>
         </Popup>
       )}
-    </Map>
+    </BaseMap>
   );
 }
