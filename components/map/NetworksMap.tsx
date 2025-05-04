@@ -23,8 +23,6 @@ export default function NetworksMap({ networks }: { networks: Network[] }) {
     }
   }, [bounds]);
 
-  console.log("Render NetworksMap", networks.length, { filteredNetworks });
-
   return (
     <BaseMap ref={mapRef} initialBounds={bounds}>
       {filteredNetworks.map((network) => (

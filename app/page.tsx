@@ -15,7 +15,6 @@ export default async function Home() {
     throw new Error(e instanceof Error ? e.message : String(e));
   }
 
-  console.log("Render Home", networks.length);
   return (
     <MainLayout
       sidebar={

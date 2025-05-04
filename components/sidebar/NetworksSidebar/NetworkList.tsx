@@ -7,7 +7,6 @@ interface NetworkListProps {
 }
 
 const NetworkList = memo(function NetworkList({ networks }: NetworkListProps) {
-  console.log("Render NetworkList", networks.length);
   return (
     <ul className="mb-4">
       {networks.map((network) => (
