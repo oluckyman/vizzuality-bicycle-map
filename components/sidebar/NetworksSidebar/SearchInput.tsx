@@ -1,5 +1,6 @@
 import React from "react";
 import { SearchIcon } from "lucide-react";
+import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
 
 interface SearchInputProps {
@@ -8,8 +9,14 @@ interface SearchInputProps {
 }
 
 export function SearchInput({ value, onChange }: SearchInputProps) {
-  // TODO: add debounce here
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value || null);
+  const debouncedOnChange = useDebouncedCallback((nextValue: string | null) => {
+    if (nextValue === null || nextValue.length >= 2) {
+      onChange(nextValue);
+    }
+  }, 300);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => debouncedOnChange(e.target.value || null);
+
   return (
     <label className="relative flex text-secondary-foreground flex-grow items-center">
       <SearchIcon strokeWidth={1} className="absolute ml-4" />
@@ -17,7 +24,7 @@ export function SearchInput({ value, onChange }: SearchInputProps) {
         type="search"
         placeholder="Search network"
         onChange={handleChange}
-        value={value}
+        defaultValue={value}
         className="pl-12 h-12 flex-1 text-sm outline-none"
       />
     </label>

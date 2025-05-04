@@ -60,7 +60,7 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] The keyword is stored in the URL (e.g. ?search=velib).
   - [x] When reloading the page, the filter is still applied.
   - [x] Style as in Figma
-  - [ ] Debounce when typing
+  - [x] Debounce when typing
 - [ ] BONUS: There is a way to centre and zoom the map around the user's location
 - [ ] BONUS: The list of networks is paginated
 
