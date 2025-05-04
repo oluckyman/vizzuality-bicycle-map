@@ -7,7 +7,8 @@ import { useQueryState } from "nuqs";
 import countries from "@/data/countries.json";
 import useFilteredNetworks from "@/hooks/useFilteredNetworks";
 import type { Network } from "@/types";
-import { SearchBar } from "./SearchBar";
+import { SearchInput } from "./SearchInput";
+import { CountrySelector } from "./CountrySelector";
 import { NetworkList } from "./NetworkList";
 
 export default function NetworksSidebar({ networks }: { networks: Network[] }) {
@@ -19,12 +20,6 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
 
   const [countryCode, setCountryCode] = useQueryState("country", { defaultValue: "", history: "replace" });
   const [search, setSearch] = useQueryState("search", { defaultValue: "", history: "replace" });
-
-  const handleCountryChange = useCallback((code: string) => setCountryCode(code || null), [setCountryCode]);
-  const handleSearchChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value || null),
-    [setSearch],
-  );
 
   console.log("Render NetworksSidebar", networks.length, { countryCode, search, filteredNetworks });
   return (
@@ -38,13 +33,10 @@ export default function NetworksSidebar({ networks }: { networks: Network[] }) {
         Lorem ipsum dolor sit amet consectetur. A volutpat adipiscing placerat turpis magna sem tempor amet faucibus.
         Arcu praesent viverra pellentesque nisi quam in rhoncus.
       </p>
-      <SearchBar
-        search={search}
-        countryCode={countryCode}
-        countries={availableCountries}
-        onSearch={handleSearchChange}
-        onCountrySelect={handleCountryChange}
-      />
+      <div className="flex mt-4.5 mb-4 gap-2 items-center">
+        <SearchInput value={search} onChange={setSearch} />
+        <CountrySelector selectedCode={countryCode} countries={availableCountries} onSelect={setCountryCode} />
+      </div>
       <NetworkList networks={filteredNetworks} />
     </div>
   );
