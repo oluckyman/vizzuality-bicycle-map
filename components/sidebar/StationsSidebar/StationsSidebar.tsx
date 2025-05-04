@@ -50,8 +50,8 @@ export default function StationsSidebar({ network }: { network: NetworkDetails }
           </TableHeader>
           <TableBody className="text-base">
             {network.stations.map((station) => (
-              <TableRow key={station.id} className="border-dashed">
-                <TableCell className="truncate">{station.name}</TableCell>
+              <TableRow key={station.id} className="border-dashed group">
+                <TableCell className="truncate group-hover:pl-4 transition-all duration-250">{station.name}</TableCell>
                 <TableCell className="font-bold text-center">{station.free_bikes}</TableCell>
                 <TableCell className="font-bold text-center">{station.empty_slots}</TableCell>
               </TableRow>
