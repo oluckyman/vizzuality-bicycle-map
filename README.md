@@ -61,7 +61,6 @@ open [http://localhost:3000](http://localhost:3000).
   - [x] When reloading the page, the filter is still applied.
   - [x] Style as in Figma
   - [ ] Debounce when typing
-  - [ ] BONUS: Highlight search terms
 - [ ] BONUS: There is a way to centre and zoom the map around the user's location
 - [ ] BONUS: The list of networks is paginated
 

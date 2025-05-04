@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Network, NetworkDetails } from "@/types";
 
-const API_URL = "http://api.citybik.es/v2";
+const API_URL = process.env.NEXT_PUBLIC_CITYBIKE_API_URL;
 
 async function fetchApi<T>(path: string) {
   const url = `${API_URL}${path}`;
